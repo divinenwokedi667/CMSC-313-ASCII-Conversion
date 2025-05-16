@@ -46,17 +46,17 @@ hex_loop: ;loop through each given byte and process them, splitting them in four
     jmp hex_loop
     
 .done: ; loop has been completed, now to write and exit
-    mov byte [edi], 0x0A ; append newline
-    inc edi              ; include it in final output
+    mov byte [edi], 0x0A ; new line, single byte
+    inc edi
 
-    mov eax, 4           ; sys_write
-    mov ebx, 1           ; stdout
+    mov eax, 4
+    mov ebx, 1
     mov ecx, outputBuf
     mov edx, edi
-    sub edx, outputBuf   ; edx = number of bytes to write
+    sub edx, outputBuf ; edx = # of bytes written out
     int 0x80
 
-    mov eax, 1           ; sys_exit
+    mov eax, 1
     mov ebx, 0
     int 0x80
     
